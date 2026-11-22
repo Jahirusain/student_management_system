@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Student</title>
+
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+
+        /* ====================================
+           Background Animation
+        ==================================== */
+/* ====================================
+   New Blue–Green Background Animation
+==================================== */
+body {
+    background: linear-gradient(135deg,
+        #00c6ff,
+        #0072ff,
+        #00ff87,
+        #0cebeb,
+        #20e3b2
+    );
+    background-size: 400% 400%;
+    animation: oceanFlow 12s ease infinite;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes oceanFlow {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 50% 0%; }
+    50% { background-position: 100% 50%; }
+    75% { background-position: 50% 100%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+        /* ====================================
+           Form Card Animation + Style
+        ==================================== */
+        .form-card {
+            max-width: 550px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 18px;
+            background: white;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+            animation: fadeIn 1.2s ease-in-out, floating 4s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ====================================
+           Title Effect
+        ==================================== */
+        .form-title {
+            font-weight: 700;
+            color: #0d6efd;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeInText 1.4s ease;
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; letter-spacing: -2px; }
+            100% { opacity: 1; letter-spacing: 1px; }
+        }
+
+        /* ====================================
+           Input Fields Animation
+        ==================================== */
+        input, select {
+            border-radius: 10px !important;
+            padding: 10px !important;
+            transition: 0.3s ease;
+            border: 1px solid #bfc6d1 !important;
+        }
+
+        input:focus, select:focus {
+            border-color: #0d6efd !important;
+            box-shadow: 0 0 10px rgba(13, 110, 253, 0.4);
+            transform: scale(1.02);
+        }
+
+        /* ====================================
+           Button Effects
+        ==================================== */
+        .btn-primary {
+            padding: 10px;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.4);
+        }
+
+        .btn-secondary {
+            border-radius: 12px;
+            font-weight: 600;
+            transition: 0.3s ease-in-out;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 117, 125, 0.4);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    
+    <div class="form-card">
+
+        <h3 class="form-title">➕ Create New Student</h3>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.roll_no.label_tag }}
+                {{ form.roll_no }}
+            </div>
+
+            {% if form.standard %}
+            <div class="mb-3">
+                {{ form.standard.label_tag }}
+                {{ form.standard }}
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary w-100">
+                Save Student
+            </button>
+
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary w-100 mt-3">
+                Back to Dashboard
+            </a>
+        </form>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - SRMS</title>
+
+<!-- Bootstrap 5 CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background: linear-gradient(135deg, #6c63ff, #00c6ff);
+        font-family: 'Poppins', sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* Fade-in animation for card */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: fadeInCard 1s forwards;
+    }
+    @keyframes fadeInCard {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-card {
+        width: 350px;
+        padding: 30px;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .login-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .login-card h3 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 700;
+        background: linear-gradient(90deg, #6c63ff, #00c6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 5px rgba(108,99,255,0.3);
+    }
+
+    .form-control {
+        border-radius: 10px;
+        transition: all 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #6c63ff;
+        box-shadow: 0 0 10px rgba(108,99,255,0.3);
+        outline: none;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c63ff;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .input-wrapper input {
+        padding-left: 35px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #6c63ff, #00c6ff);
+        border: none;
+        transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn-secondary {
+        border-radius: 10px;
+        transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .alert {
+        border-radius: 10px;
+        font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+
+<div class="login-card fade-in">
+    <h3>SRMS Login</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3 input-wrapper">
+            <i class="bi bi-person input-icon"></i>
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
+        </div>
+
+        <div class="mb-3 input-wrapper">
+            <i class="bi bi-lock input-icon"></i>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+
+    {% for message in messages %}
+    <div class="alert alert-danger mt-3 text-center shadow-sm">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <div class="text-center mt-3">
+        <a href="{% url 'home' %}" class="btn btn-secondary w-100"><i class="bi bi-arrow-left-circle me-1"></i> Back to Home</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

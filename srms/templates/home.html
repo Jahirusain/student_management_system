@@ -1,0 +1,162 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SRMS — Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f0f4f8, #ffffff);
+      overflow-x: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Navbar */
+    .navbar { padding: 0.5rem 1rem; }
+    .navbar-brand { font-weight: bold; font-size: 1.5rem; }
+    .btn-outline-light:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition:0.3s; }
+
+    /* Hero / School Info */
+    .school-info {
+      text-align: center;
+      margin-bottom: 50px;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #6c63ff, #00c6ff);
+      color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInDown 1s forwards;
+    }
+    .school-info h2 { font-weight: 700; font-size: 2.2rem; margin-bottom: 10px; }
+    .school-info p { font-size: 1rem; color: rgba(255,255,255,0.9); margin: 2px 0; }
+    .school-info::before {
+      content:"";
+      position:absolute; width:200%; height:200%; background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);
+      top:-50%; left:-50%; transform: rotate(45deg); animation: rotateBg 20s linear infinite;
+    }
+    @keyframes rotateBg { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* Main Headings */
+    .display-6 { font-weight: 600; opacity:0; transform:translateY(-20px); animation: fadeInDown 1s forwards; animation-delay:0.2s; }
+    .lead { opacity:0; animation: fadeIn 1s forwards; animation-delay:0.4s; }
+
+    /* Card / Form */
+    .card {
+      border-radius: 1.2rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 1s forwards;
+      animation-delay: 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      position: relative;
+    }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+    .card::after {
+      content:"";
+      position:absolute; width:100%; height:5px; bottom:0; left:0;
+      background: linear-gradient(90deg, #6c63ff, #00c6ff);
+      transform: scaleX(0); transform-origin:left;
+      transition: transform 0.5s;
+    }
+    .card:hover::after { transform: scaleX(1); }
+
+    .btn-primary { background-color:#6c63ff; border-color:#6c63ff; transition: transform 0.3s, box-shadow 0.3s; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+    /* Footer */
+    footer {
+      background: #343a40;
+      color: white;
+      padding: 30px 0;
+      margin-top: 50px;
+      opacity:0; transform:translateY(20px);
+      animation: fadeInUp 1s forwards;
+      animation-delay: 0.5s;
+    }
+    footer a { color: #ffc107; text-decoration:none; transition:0.3s; }
+    footer a:hover { text-decoration:underline; }
+
+    /* Animations */
+    @keyframes fadeInUp { 0% {opacity:0; transform:translateY(20px);} 100% {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInDown { 0% {opacity:0; transform:translateY(-20px);} 100% {opacity:1; transform:translateY(0);} }
+    @keyframes fadeIn { 0% {opacity:0;} 100% {opacity:1;} }
+  </style>
+  
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+      <i class="fa-solid fa-school fs-2 me-2"></i>
+      <span class="fw-bold fs-4">Sunrise Public School</span>
+    </a>
+    <div class="ms-auto">
+      <a class="btn btn-outline-light btn-sm" href="{% url 'login' %}"><i class="bi bi-person-fill me-1"></i>Admin Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- SCHOOL INFO -->
+<div class="school-info">
+  <h2>Sunrise Public School</h2>
+  <p>123 Main Street, Springfield</p>
+  <p><i class="bi bi-envelope me-1"></i> info@sunrisepublicschool.com | <i class="bi bi-telephone me-1"></i> +91 98765 43210</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container mt-4 pt-4">
+  <div class="text-center mb-4">
+    <h1 class="display-6">Student Result Management System</h1>
+    <p class="lead text-muted">Enter your Name and Roll Number to view your results.</p>
+  </div>
+
+  <!-- SEARCH FORM -->
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <form method="GET" action="{% url 'student_result' %}">
+          <div class="mb-3">
+            <label class="form-label"><strong>Student Name</strong></label>
+            <input type="text" name="name" class="form-control" placeholder="Enter full name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><strong>Roll Number</strong></label>
+            <input type="text" name="roll_no" class="form-control" placeholder="Enter roll number" required>
+          </div>
+          <button class="btn btn-primary w-100"><i class="bi bi-search me-1"></i>View Result</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center">
+  <div class="container">
+    <p class="mb-1"><strong>Sunrise Public School</strong> — 123 Main Street, Springfield</p>
+    <p class="mb-1">Email: <a href="mailto:info@sunrisepublicschool.com">info@sunrisepublicschool.com</a> | Phone: +91 98765 43210</p>
+    <p class="mb-0">&copy; {{ current_year }} Sunrise Public School. All rights reserved.</p>
+    <div class="mt-2">
+      <a href="#" class="me-3"><i class="bi bi-facebook"></i> Facebook</a>
+      <a href="#" class="me-3"><i class="bi bi-twitter"></i> Twitter</a>
+      <a href="#"><i class="bi bi-instagram"></i> Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Result Form</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+<style>
+    body {
+        background: linear-gradient(135deg, #6c63ff, #00c6ff);
+        min-height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* Floating background circles */
+    .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.1);
+        animation: float 6s infinite ease-in-out;
+    }
+    .bg-circle:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 15%; animation-delay: 0s; }
+    .bg-circle:nth-child(2) { width: 120px; height: 120px; top: 70%; left: 70%; animation-delay: 2s; }
+    .bg-circle:nth-child(3) { width: 50px; height: 50px; top: 50%; left: 50%; animation-delay: 4s; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+    /* Card */
+    .card {
+        border-radius: 1rem;
+        padding: 30px;
+        background: linear-gradient(135deg, #ffffff, #f0f4ff);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.8s forwards;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    }
+
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* Heading */
+    h2 {
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 25px;
+        background: linear-gradient(90deg, #6c63ff, #00c6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textGlow 2s ease-in-out infinite alternate;
+    }
+    @keyframes textGlow { 0% { text-shadow: 0 0 5px #6c63ff; } 100% { text-shadow: 0 0 20px #00c6ff; } }
+
+    /* Inputs */
+    .form-control {
+        border-radius: 10px;
+        transition: all 0.3s;
+    }
+    .form-control:focus {
+        border-color: #6c63ff;
+        box-shadow: 0 0 10px rgba(108,99,255,0.3);
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background: linear-gradient(135deg, #6c63ff, #00c6ff);
+        border: none;
+        transition: all 0.3s;
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    .btn-secondary {
+        border-radius: 10px;
+        transition: all 0.3s;
+    }
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Fade-in for fields */
+    .fade-in { opacity: 0; transform: translateY(15px); animation: fadeInUp 0.6s forwards; }
+    .fade-in.delay-1 { animation-delay: 0.2s; }
+    .fade-in.delay-2 { animation-delay: 0.4s; }
+    .fade-in.delay-3 { animation-delay: 0.6s; }
+    .fade-in.delay-4 { animation-delay: 0.8s; }
+    .fade-in.delay-5 { animation-delay: 1s; }
+
+</style>
+</head>
+<body>
+
+<div class="bg-circle"></div>
+<div class="bg-circle"></div>
+<div class="bg-circle"></div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <h2 class="fade-in">Result Form</h2>
+                
+              <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </div>
+    <div class="mb-3">
+        {{ form.roll_no.label_tag }}
+        {{ form.roll_no }}
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Save</button>
+</form>
+
+                <div class="mt-3 text-center fade-in delay-{{ form|length|add:"1" }}">
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary w-100"><i class="bi bi-arrow-left-circle me-1"></i> Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
